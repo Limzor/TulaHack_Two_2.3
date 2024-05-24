@@ -11,6 +11,7 @@ conn = sqlite3.connect(db_path, check_same_thread=False)  # добавлено c
 cursor = conn.cursor()
 
 userdata = {}
+TotalTime = {}
 
 HELP = """
 /help список команд
@@ -55,8 +56,12 @@ def is_open_during(time_range, open_time, close_time):
 @bot.message_handler(func=lambda message: True)
 def handle_time_range(message):
     user_time_range = message.text
+    user_id = message.chat.id
     try:
         start_time, end_time = parse_time_range(user_time_range)
+        duration = calculate_duration(start_time, end_time)
+        TotalTime[user_id] = duration
+
         cursor.execute('SELECT name, open_time, close_time FROM attractions')
         available_attractions = []
         for row in cursor.fetchall():
@@ -67,6 +72,9 @@ def handle_time_range(message):
             bot.send_message(message.chat.id, f"Доступные места: {', '.join(available_attractions)}")
         else:
             bot.send_message(message.chat.id, "Нет доступных мест в указанное время")
+
+        bot.send_message(message.chat.id, f"Разница во времени: {duration}")
+
     except ValueError as e:
         bot.send_message(message.chat.id, str(e))
 

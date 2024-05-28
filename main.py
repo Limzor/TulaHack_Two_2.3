@@ -3,7 +3,7 @@ import sqlite3
 import re
 from datetime import datetime, timedelta
 
-token = '7024234092:AAHMd3xQjq0_SxXRTLq4w6e7o9LvM8v8mrI'
+token = ''
 bot = telebot.TeleBot(token)
 
 db_path = "C:\\Users\\Limzor\\Desktop\\GitTele\\TulaHack_Two_2.3\\attractions.db"

@@ -11,7 +11,7 @@ token = ''
 bot = telebot.TeleBot(token)
 
 # Путь к базе данных
-db_path = "C:\\Users\\Limzor\\Desktop\\GitTele\\TulaHack_Two_2.3\\attractions.db"
+db_path = "attractions.db"
 
 # Подключение к базе данных
 conn = sqlite3.connect(db_path, check_same_thread=False)  # Добавлено check_same_thread=False для работы с многопоточностью
